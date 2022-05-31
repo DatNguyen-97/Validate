@@ -44,5 +44,28 @@
         </form>
       
       </div>
+      <script src="./validate.js"></script>
+      <script>
+          Validator({
+              form : '#form-1',
+              input : '.form-group > input',
+              formgroup : '.form-group',
+              errorSelector : '.form-message',
+              rules : [
+                  Validator.isRequired('#fullname','Vui lòng nhập tên đầy đủ của bạn'),
+                  Validator.isRequired('#email'),
+                  Validator.isEmail('#email'),
+                  Validator.isRequired('#password'),
+                  Validator.minLength('#password',6),
+                  Validator.isRequired('#password_confirmation'),
+                  Validator.isConfirmed('#password_confirmation', () => {
+                      return document.querySelector('#form-1 #password').value;
+                  },'Mật khẩu nhập lại không chính xác')
+              ],
+              onSubmit : function(data) {
+                  console.log(data);
+              }
+          })
+      </script>
 </body>
 </html>
